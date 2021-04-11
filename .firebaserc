@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "familytree-ae615": {
+      "hosting": {
+        "app": [
+          "familytree-ae615"
+        ]
+      }
+    }
+  }
+}
