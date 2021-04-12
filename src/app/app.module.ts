@@ -1,3 +1,4 @@
+import { AddmemberService } from './services/addmember.service';
 import { AuthService } from './services/auth.service';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
@@ -73,7 +74,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
     MatRadioModule,
     
   ],
-  providers: [AuthService],
+  providers: [AuthService,AddmemberService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

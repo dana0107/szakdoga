@@ -6,7 +6,7 @@
       <form [formGroup]="addmemberform" (ngSubmit)="submit(addmemberform)" class="form">
   
         <div>
-  
+        <input type="hidden" formControlName="$key">
           <mat-form-field appearance="fill">
             <mat-label>Kinek</mat-label>
             <input matInput formControlName="whosmember">

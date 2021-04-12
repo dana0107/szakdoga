@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, of } from 'rxjs';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-} from '@angular/fire/firestore';
+import {AngularFirestore,AngularFirestoreDocument} from '@angular/fire/firestore';
 import { switchMap, map } from 'rxjs/operators';
 import { User } from 'src/app/types/user';
 import { Router } from '@angular/router';
@@ -35,6 +31,11 @@ export class AuthService {
     );
   }
 
+  logout() {
+    this.router.navigate(['/login']);
+    return this.afAuth.signOut();
+  }
+
   async checkUser() {
     return this.afAuth.currentUser;
   }
@@ -43,10 +44,6 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  logout() {
-    this.router.navigate(['/login']);
-    return this.afAuth.signOut();
-  }
 
   async signUp(email: string, password: string, first: string) {
     const cred = await this.afAuth
@@ -55,16 +52,14 @@ export class AuthService {
         const newUser: User = {
           first,
           email,
-          uid : result.user!.uid,
+          uid: result.user!.uid,
         };
 
         this.setUserData(newUser);
       });
   }
-  
   setUserData(user: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
-      `users/${user.uid}`
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`
     );
     return userRef.set(user, {
       merge: true,

@@ -1,6 +1,8 @@
+import { AddmemberService } from './../../services/addmember.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
+
 
 interface Member {
   value: string;
@@ -14,20 +16,21 @@ interface Member {
 })
 export class AddMemberComponent implements OnInit {
 
-  addmemberform:any;
+  //memberList : AngularFireList<any>;
+  
+  constructor(private addservice:AddmemberService){}
 
-  constructor() {
-    this.addmemberform = new FormGroup({
-      lastname: new FormControl(''),
-      firstname: new FormControl(''),
-      birthyear: new FormControl(''),
-      birthplace: new FormControl(''),
-      member: new FormControl(''),
-      whosmember:new FormControl(''),
-      alive: new FormControl(false),
-      gender: new FormControl(''),    
-    });
-   }
+   addmemberform : FormGroup = new FormGroup({
+    $key:new FormControl(null),
+    lastname: new FormControl(''),
+    firstname: new FormControl(''),
+    birthyear: new FormControl(''),
+    birthplace: new FormControl(''),
+    member: new FormControl(''),
+    whosmember:new FormControl(''),
+    alive: new FormControl(false),
+    gender: new FormControl(''),    
+  });
 
   // this.registerform = new FormGroup(
   //   {
