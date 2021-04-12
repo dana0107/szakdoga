@@ -1,9 +1,9 @@
 {
   "targets": {
-    "familytree-ae615": {
+    "fire-auth-uj": {
       "hosting": {
-        "app": [
-          "familytree-ae615"
+        "firebase-app": [
+          "fire-auth-uj"
         ]
       }
     }

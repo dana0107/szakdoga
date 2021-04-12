@@ -1,37 +1,46 @@
-<mat-card>
-  <mat-card-title>Bejelentkezés</mat-card-title>
-  <mat-card-content>
-    <form fxLayout="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayoutAlign="center center" fxLayoutGap="10px"  >
-      <p>
-        <mat-form-field>
-          <input type="email" matInput placeholder="Email cím" ngModel name="name" email required #emailInput="ngModel">
-          <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
-          <mat-error *ngIf="!emailInput.hasError('required')">E-Mail is invalid.</mat-error>
-        </mat-form-field>
-      </p>
-
-      <p>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Jelszó" name="password" ngModel required #pwInput="ngModel">
-          <mat-hint>Please enter your password.</mat-hint>
-          <mat-error>Missing password.</mat-error>
-
-
-        </mat-form-field>
-      </p>
-
-
-      <div class="button">
-        <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Belépés</button>
-      </div>
-      <br>
-      <div class="button">
-        <button mat-button routerLink="/registration">Még nincs fiókod, regisztrálj!</button>
-      </div>
-      <div class="button">
-        <button mat-button>Folytatás regisztráció nélkül</button>
-      </div>
-
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="loginandsignup" fxLayoutAlign="center center">
+    <mat-card class="card">
+        <div class="title" fxLayout="column">
+            <h2>Családfa készítés</h2>
+            <div fxLayout="row" fxLayoutAlign="center">
+                <mat-tab-group>
+                    <mat-tab label="Bejelentkezés">
+                        <ng-template matTabContent>
+                            <form [formGroup]="loginform" fxLayoutAlign="center center" fxLayoutGap="10px" (ngSubmit)="login()">
+                                <div fxLayout="column" class="form-container">
+                                    <mat-form-field>
+                                        <input matInput required placeholder="Email" formControlName="email" type="email" />
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput required placeholder="Jelszó" formControlName="password" type="password" />
+                                    </mat-form-field>
+                                    <button mat-button [disabled]="loginform.invalid">Bejelentkezés</button>
+                                    <br>
+                                    <button mat-button>Folytatás regisztráció nélkül</button>
+                                </div>
+                            </form>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Regisztráció">
+                        <ng-template matTabContent>
+                            <form [formGroup]="registerform" (ngSubmit)="register()">
+                                <div fxLayout="column" class="form-container">
+                                    <mat-form-field>
+                                        <input matInput required placeholder="Keresztnév" formControlName="name" />
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput required placeholder="Email" formControlName="email" type="email" />
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input matInput required placeholder="Password" formControlName="password" type="password" />
+                                    </mat-form-field>
+                                    <button mat-button [disabled]="registerform.invalid">Regisztráció</button>
+                                </div>
+                            </form>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </mat-card>
+</div>
