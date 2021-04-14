@@ -1,0 +1,84 @@
+<mat-toolbar>
+  <span
+    style="position: absolute;">{{this.addservice.addmemberform.get('id')?.value ? "Módosítás":"Új családtag felvétele"}}</span>
+  <button (click)="onClose()" class="bezarasgomb">
+    <mat-icon> clear </mat-icon>
+  </button>
+</mat-toolbar>
+<div>
+  <form [formGroup]="this.addservice.addmemberform" (ngSubmit)="submit()" class="form">
+    <div>
+      <input type="hidden" formControlName="id">
+      <mat-form-field appearance="fill">
+        <mat-label>Kinek</mat-label>
+        <input matInput formControlName="whosmember">
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill">
+                <mat-label>Kije</mat-label>
+                <mat-select [(ngModel)]="csaladtagtipus" name="member">
+                  <mat-option  *ngFor="let member of members" [value]="member.value">{{member.viewValue}}</mat-option>
+                  
+                </mat-select>
+              </mat-form-field>  -->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Kije</mat-label>
+        <mat-select formControlName="member">
+          <ng-container *ngFor="let member of members">
+            <mat-option value="{{member.value}}">{{member.viewValue}}</mat-option>
+          </ng-container>
+
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div>
+      <mat-radio-group formControlName="gender">
+        <mat-radio-button value="1">Férfi</mat-radio-button><br>
+        <mat-radio-button value="2">Nő</mat-radio-button><br>
+        <mat-radio-button value="3">Nem ismert</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div></div>
+    <div>
+      <mat-form-field class="max-width">
+        <mat-label>Vezetéknév</mat-label>
+        <input matInput formControlName="lastname">
+      </mat-form-field>
+      <mat-form-field class="max-width">
+        <mat-label>Keresztnév</mat-label>
+        <input formControlName="firstname" matInput>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="max-width">
+        <mat-label>Születési hely</mat-label>
+        <input formControlName="birthplace" matInput>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="max-width">
+        <mat-label>Születési év</mat-label>
+        <input formControlName="birthyear" matInput minlength="4" maxlength="4" type="number">
+        <mat-hint>Négy számjegyű számot adj meg!</mat-hint>
+      </mat-form-field>
+
+    </div>
+
+    <div>
+      <mat-checkbox formControlName="alive">Élő</mat-checkbox>
+    </div>
+    <br>
+    <div>
+      <button mat-raised-button color="primary" type="submit">Hozzáadás</button>
+      <button mat-raised-button color="warn" type="submit" (click)="onClear()">Mezők visszaállítása</button>
+
+
+    </div>
+
+  </form>
+</div>

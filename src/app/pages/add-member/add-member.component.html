@@ -1,106 +1,13 @@
 <div class="form" fxLayout="column" fxFlexFill>
 
     <app-navbar></app-navbar>
-  
-    <div >
-      <form [formGroup]="addmemberform" (ngSubmit)="submit()" class="form">
-  
-        <div>
-        <input type="hidden" formControlName="id">
-          <mat-form-field appearance="fill">
-            <mat-label>Kinek</mat-label>
-            <input matInput formControlName="whosmember">
-          </mat-form-field>
-  
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Kije</mat-label>
-            <mat-select [(ngModel)]="csaladtagtipus" name="member">
-              <mat-option  *ngFor="let member of members" [value]="member.value">{{member.viewValue}}</mat-option>
-              
-            </mat-select>
-          </mat-form-field>  -->
-  
-          <mat-form-field appearance="fill">
-            <mat-label>Kije</mat-label>
-            <mat-select formControlName="member">
-              <ng-container *ngFor="let member of members" >
-                <mat-option value="{{member.value}}">{{member.viewValue}}</mat-option>
-              </ng-container>
-  
-            </mat-select>
-          </mat-form-field>
 
-        </div>
-  
-  
-        <div>
-          <mat-radio-group formControlName="gender">
-            <mat-radio-button value="1">Férfi</mat-radio-button><br>
-            <mat-radio-button value="2">Nő</mat-radio-button><br>
-            <mat-radio-button value="3">Nem ismert</mat-radio-button>
-          </mat-radio-group>
-        </div> 
-  
-  
-        <div>
-          <mat-form-field class="max-width">
-            <mat-label>Vezetéknév</mat-label>
-            <input matInput formControlName="lastname">
-          </mat-form-field>
-          <mat-form-field class="max-width">
-            <mat-label>Keresztnév</mat-label>
-            <input formControlName="firstname" matInput>
-          </mat-form-field>
-        </div>
- 
-        <div>
-          <mat-form-field class="max-width">
-            <mat-label>Születési hely</mat-label>
-            <input formControlName="birthplace" matInput>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field class="max-width">
-            <mat-label>Születési év</mat-label>
-            <input formControlName="birthyear" matInput maxlength="4">
-          </mat-form-field>
-  
-        </div>
-  
-        <div>
-          <mat-checkbox formControlName="alive">Élő</mat-checkbox>        
-        </div>
-        <br>
-        <div>
-          <button mat-raised-button color="primary" type="submit">Hozzáadás</button>
-          <button mat-raised-button color="warn" type="submit" (click)="onClear()">Mezők visszaállítása</button>
-         
-          
-        </div>
-  
-      </form>
-    </div>
-    <!-- <div>
-      <mat-card *ngFor="let member of memberlist | async ">
-        <mat-card-header>
-          <mat-card-title>{{member.lastname}} {{member.firstname}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{member.birthyear}},{{member.birthplace}}</p>
-        </mat-card-content>
-      </mat-card>
-    </div> -->
-    <!-- <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-    </mat-form-field> -->
     <div class="padding">
-      <mat-form-field class="search-form-field" >
-        <input matInput (keyup)="applyFilterr($event)" placeholder="Search" autocomplete="off" >
-        <!-- (keyup)="applyFilter2()" -->
-        <!-- <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-          <mat-icon>close</mat-icon>
-        </button> -->
+      <button mat-raised-button class="button2"  (click)="onCreate()">
+        <mat-icon>add</mat-icon>Új családtag hozzáadása
+      </button>
+      <mat-form-field class="search-form-field" style="width: 300px;">
+        <input matInput (keyup)="filter($event)" placeholder="Search" autocomplete="off">
       </mat-form-field>
     </div>
     <div class="padding">

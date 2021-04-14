@@ -38,6 +38,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {CdkTableModule} from '@angular/cdk/table';
 import { TabledataComponent } from './pages/tabledata/tabledata.component';
 import {MatSortModule,MatSort} from '@angular/material/sort';
+import {AddCloseFamilyComponent} from './pages/add-close-family/add-close-family.component';
+import { AddCloseComponent } from './pages/add-close/add-close.component';
+import { FormComponent } from './pages/form/form.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import {MatSortModule,MatSort} from '@angular/material/sort';
     WelcomeComponent,
     NavbarComponent,
     TabledataComponent,
+    AddCloseFamilyComponent,
+    AddCloseComponent,
+    FormComponent,
     
     
   ],

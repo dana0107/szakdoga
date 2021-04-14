@@ -1,3 +1,4 @@
+import { FormComponent } from './../form/form.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Familymember } from './../../types/familymember';
 import { AddmemberService } from './../../services/addmember.service';
@@ -12,14 +13,9 @@ import { Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 
 
-
-
-interface Member {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-add-member',
@@ -28,29 +24,35 @@ interface Member {
 })
 export class AddMemberComponent implements OnInit {
 
-  constructor(private addservice: AddmemberService, private firestore: AngularFirestore,public dialog: MatDialog) {}
+  constructor(private addservice: AddmemberService, private firestore: AngularFirestore, public dialog: MatDialog) { }
 
-  addmemberform = new FormGroup({
-    id: new FormControl(null),
-    lastname: new FormControl(''),
-    firstname: new FormControl(''),
-    birthyear: new FormControl(''),
-    birthplace: new FormControl(''),
-    member: new FormControl(''),
-    whosmember: new FormControl(''),
-    alive: new FormControl(false),
-    gender: new FormControl(''),
-  });
-  
+  dataSource2!: MatTableDataSource<any>;
+
+  ngOnInit() {
+    this.getdata();
+   this.dataSource2 = new MatTableDataSource<any>();
+  }
+
+  onCreate() {
+    this.addservice.initializeFormGroup();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    this.dialog.open(FormComponent, dialogConfig);
+  }
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   searchKey: string = "";
   data: any;
 
-  public dataSource2 = new MatTableDataSource<any>();
+  
 
-  applyFilterr(event: Event) {
+  
+
+  filter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource2.filter = filterValue.trim().toLowerCase();
   }
@@ -85,25 +87,39 @@ export class AddMemberComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.getdata();
-  }
-
+  
   memberlist() {
     return this.addservice.getMembers();
   }
 
-  editMember(row:string) {
-    // this.addservice.populateForm(row);
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
-    // dialogConfig.width = "60%";
-    // this.dialog.open(EmployeeComponent,dialogConfig);
-   }
 
-  deleteMember(id:string) {
-    this.addservice.delete('members',id);
+  editMember(row: any) {
+   
+    this.addservice.populate(row);
+
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    this.dialog.open(FormComponent, dialogConfig);
+
+  }
+
+  // TODO : TEST
+  
+
+  // onEdit(row){
+  //   this.service.populateForm(row);
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = "60%";
+  //   this.dialog.open(EmployeeComponent,dialogConfig);
+  // }
+
+  deleteMember(id: string) {
+    this.addservice.delete('members', id);
     this.getdata();
     console.log('torles');
   }
@@ -114,24 +130,15 @@ export class AddMemberComponent implements OnInit {
   selectedValue = "";
   csaladtagtipus = "";
 
-  members: Member[] = [
-    { value: '21', viewValue: 'Édesapa' },
-    { value: '22', viewValue: 'Édesanya' },
 
-    { value: '12', viewValue: 'Lánytestvér' },
-    { value: '11', viewValue: 'Fiútestvér' },
-
-    { value: '1', viewValue: 'Lány gyermek' },
-    { value: '2', viewValue: 'Fiú gyermek' },
-  ];
 
   onClear() {
-    this.addmemberform.reset();
+    this.addservice.addmemberform.reset();
   }
 
 
   submit() {
-    let data = this.addmemberform.value;
+    let data = this.addservice.addmemberform.value;
     this.addservice.add("members", data).then(res => {
       this.onClear();
 
