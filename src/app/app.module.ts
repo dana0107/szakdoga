@@ -34,6 +34,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddMemberComponent } from './pages/add-member/add-member.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {CdkTableModule} from '@angular/cdk/table';
+import { TabledataComponent } from './pages/tabledata/tabledata.component';
+import {MatSortModule,MatSort} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,10 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
     LoginComponent,
     AddMemberComponent,
     WelcomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    TabledataComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -52,7 +59,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
 
-
+    
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
@@ -72,9 +79,14 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
     MatSnackBarModule,
     MatCardModule,
     MatRadioModule,
+    MatPaginatorModule,
+    CdkTableModule,
+    MatSortModule,
+    
+
     
   ],
-  providers: [AuthService,AddmemberService],
+  providers: [AuthService,AddmemberService,MatSort],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

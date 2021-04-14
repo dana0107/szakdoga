@@ -1,12 +1,12 @@
-<div fxLayout="column" fxFlexFill>
+<div class="form" fxLayout="column" fxFlexFill>
 
     <app-navbar></app-navbar>
   
-    <div>
-      <form [formGroup]="addmemberform" (ngSubmit)="submit(addmemberform)" class="form">
+    <div >
+      <form [formGroup]="addmemberform" (ngSubmit)="submit()" class="form">
   
         <div>
-        <input type="hidden" formControlName="$key">
+        <input type="hidden" formControlName="id">
           <mat-form-field appearance="fill">
             <mat-label>Kinek</mat-label>
             <input matInput formControlName="whosmember">
@@ -29,10 +29,7 @@
   
             </mat-select>
           </mat-form-field>
-  
-          
-  
-  
+
         </div>
   
   
@@ -55,9 +52,7 @@
             <input formControlName="firstname" matInput>
           </mat-form-field>
         </div>
-  
-  
-  
+ 
         <div>
           <mat-form-field class="max-width">
             <mat-label>Születési hely</mat-label>
@@ -79,14 +74,68 @@
         <div>
           <button mat-raised-button color="primary" type="submit">Hozzáadás</button>
           <button mat-raised-button color="warn" type="submit" (click)="onClear()">Mezők visszaállítása</button>
+         
+          
         </div>
-  
-  
-  
   
       </form>
     </div>
-  
+    <!-- <div>
+      <mat-card *ngFor="let member of memberlist | async ">
+        <mat-card-header>
+          <mat-card-title>{{member.lastname}} {{member.firstname}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{member.birthyear}},{{member.birthplace}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div> -->
+    <!-- <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field> -->
+    <div class="padding">
+      <mat-form-field class="search-form-field" >
+        <input matInput (keyup)="applyFilterr($event)" placeholder="Search" autocomplete="off" >
+        <!-- (keyup)="applyFilter2()" -->
+        <!-- <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+          <mat-icon>close</mat-icon>
+        </button> -->
+      </mat-form-field>
+    </div>
+    <div class="padding">
+      <mat-table [dataSource]="dataSource2"  matSort>
+        <ng-container matColumnDef="lastname">
+          <mat-header-cell *matHeaderCellDef  mat-sort-header>Last name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.lastname}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="firstname">
+          <mat-header-cell *matHeaderCellDef  mat-sort-header>First name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.firstname}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="birthyear">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Születési idő</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.birthyear}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="birthplace">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Születési hely</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.birthplace}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button (click)="editMember(row)"><mat-icon>launch</mat-icon></button>
+            <button mat-icon-button  (click)="deleteMember(row.id)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div> 
   </div>
   
   

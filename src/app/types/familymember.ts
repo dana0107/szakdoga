@@ -1,5 +1,5 @@
 export interface Familymember{
-    $key:string;
+    id:string;
     lastname: string;
     firstname:string;
     birthyear: number;
